@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:18:45 by ssar              #+#    #+#             */
-/*   Updated: 2021/02/03 10:03:00 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 10:17:20 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 # define GET_NEXT_LINE_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
-#if BUFFER_SIZE < 0
-# define BUF_SIZE 0
-#else
-# define BUF_SIZE BUFFER_SIZE
 
 int		ft_length(char *str);
 char	*ft_concate(char *s1, char *s2);
@@ -30,4 +26,9 @@ void	ft_temp_is_n(char *new_line, char *temp, int *size);
 int		ft_end_of_line(int fd, char **line, char *temp, char *new_line);
 int		get_next_line(int fd, char **line);
 
+#if BUFFER_SIZE < 0
+# define BUF_SIZE 0
+#else
+# define BUF_SIZE BUFFER_SIZE
+#endif
 #endif
