@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:18:45 by ssar              #+#    #+#             */
-/*   Updated: 2021/02/03 10:16:34 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 10:33:39 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_compare(char *str, char c);
 void	ft_move(char *str, int *size);
 char	*ft_dup(char **dest, char *src);
 int		ft_free_new(char *new_line);
-void	ft_temp_is_n(char *new_line, char *temp, int *size);
+int		ft_temp_is_n(char *new_line, char *temp, int *size);
 int		ft_end_of_line(int fd, char **line, char *new_line);
 int		get_next_line(int fd, char **line);
 

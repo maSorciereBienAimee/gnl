@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:17:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/02/03 09:34:20 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 10:32:52 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ int	ft_free_new(char *new_line)
 	return (-1);
 }
 
-void	ft_temp_is_n(char *new_line, char *temp, int *size)
+int	ft_temp_is_n(char *new_line, char *temp, int *size)
 {
 	ft_move(temp, size);
 	new_line = ft_concate(new_line, temp);
 	if (!new_line)
-		return (ft_free_new(new_line));
+		return (-1);
+	return (1);
 }
 
 int	ft_end_of_line(int fd, char **line, char *new_line)
@@ -32,7 +33,10 @@ int	ft_end_of_line(int fd, char **line, char *new_line)
 	static char	temp[BUF_SIZE + 1] = "\0";
 
 	if (ft_compare(temp, '\n') != 0)
-		ft_temp_is_n(new_line, temp, &size);
+	{
+		if (ft_temp_is_n(new_line, temp, &size) != 1)
+			return (ft_free_new(new_line));
+	}
 	while (ft_compare(temp, '\n') == 0)
 	{
 		size = read(fd, temp, BUFFER_SIZE);
@@ -49,9 +53,7 @@ int	ft_end_of_line(int fd, char **line, char *new_line)
 	if (!(*line))
 		return (ft_free_new(new_line));
 	free(new_line);
-	if (size == 0)
-		return (0);
-	return (1);
+	return (size);
 }
 
 int	get_next_line(int fd, char **line)
