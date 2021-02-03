@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:17:56 by ssar              #+#    #+#             */
-/*   Updated: 2021/02/03 10:32:52 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 11:50:54 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_free_new(char *new_line)
 	return (-1);
 }
 
-int	ft_temp_is_n(char *new_line, char *temp, int *size)
+int ft_temp_is_n(char **new_line, char *temp, int *size)
 {
 	ft_move(temp, size);
-	new_line = ft_concate(new_line, temp);
-	if (!new_line)
+	*new_line = ft_concate(*new_line, temp);
+	if (!*new_line)
 		return (-1);
 	return (1);
 }
@@ -34,7 +34,7 @@ int	ft_end_of_line(int fd, char **line, char *new_line)
 
 	if (ft_compare(temp, '\n') != 0)
 	{
-		if (ft_temp_is_n(new_line, temp, &size) != 1)
+		if (!ft_temp_is_n(&new_line, temp, &size))
 			return (ft_free_new(new_line));
 	}
 	while (ft_compare(temp, '\n') == 0)
