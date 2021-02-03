@@ -6,7 +6,7 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:17:56 by ssar              #+#    #+#             */
-/*   Updated: 2020/12/03 17:21:52 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 09:34:20 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,35 @@ int	ft_free_new(char *new_line)
 	return (-1);
 }
 
+void	ft_temp_is_n(char *new_line, char *temp, int *size)
+{
+	ft_move(temp, size);
+	new_line = ft_concate(new_line, temp);
+	if (!new_line)
+		return (ft_free_new(new_line));
+}
+
 int	ft_end_of_line(int fd, char **line, char *new_line)
 {
 	int			size;
 	static char	temp[BUF_SIZE + 1] = "\0";
 
 	if (ft_compare(temp, '\n') != 0)
-	{
-		ft_move(temp, &size);
-		if (!(new_line = ft_concate(new_line, temp)))
-			return (ft_free_new(new_line));
-	}
+		ft_temp_is_n(new_line, temp, &size);
 	while (ft_compare(temp, '\n') == 0)
 	{
-		if ((size = read(fd, temp, BUFFER_SIZE)) == -1)
+		size = read(fd, temp, BUFFER_SIZE);
+		if (size == -1)
 			return (ft_free_new(new_line));
 		temp[size] = '\0';
-		if (!(new_line = ft_concate(new_line, temp)))
+		new_line = ft_concate(new_line, temp);
+		if (!new_line)
 			return (ft_free_new(new_line));
 		if (size == 0)
 			break ;
 	}
-	if (!(*line = ft_dup(line, new_line)))
+	*line = ft_dup(line, new_line);
+	if (!(*line))
 		return (ft_free_new(new_line));
 	free(new_line);
 	if (size == 0)
@@ -54,7 +61,8 @@ int	get_next_line(int fd, char **line)
 
 	if (fd < 0 || line == 0 || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(new_line = malloc(sizeof(char))))
+	new_line = malloc(sizeof(char));
+	if (!new_line)
 		return (-1);
 	new_line[0] = '\0';
 	result = ft_end_of_line(fd, line, new_line);

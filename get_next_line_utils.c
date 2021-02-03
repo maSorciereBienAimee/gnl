@@ -6,15 +6,15 @@
 /*   By: ssar <ssar@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:21:36 by ssar              #+#    #+#             */
-/*   Updated: 2020/12/03 17:24:55 by ssar             ###   ########.fr       */
+/*   Updated: 2021/02/03 09:57:50 by ssar             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		ft_length(char *str)
+int	ft_length(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -32,7 +32,8 @@ char	*ft_concate(char *s1, char *s2)
 	j = 0;
 	i = 0;
 	size = ft_length(s1) + ft_length(s2);
-	if (!(tab = (char *)malloc(sizeof(char) * (size + 1))))
+	tab = (char *)malloc(sizeof(char) * (size + 1));
+	if (!tab)
 		return (NULL);
 	while (s1[j])
 		tab[i++] = s1[j++];
@@ -44,7 +45,7 @@ char	*ft_concate(char *s1, char *s2)
 	return (tab);
 }
 
-int		ft_compare(char *str, char c)
+int	ft_compare(char *str, char c)
 {
 	while (*str != '\0')
 	{
@@ -57,8 +58,8 @@ int		ft_compare(char *str, char c)
 
 void	ft_move(char *str, int *size)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -79,12 +80,13 @@ void	ft_move(char *str, int *size)
 
 char	*ft_dup(char **dest, char *src)
 {
-	int len;
-	int i;
+	int	len;
+	int	i;
 
 	i = 0;
 	len = ft_length(src);
-	if (!(*dest = (char *)malloc(sizeof(char) * (len + 1))))
+	*dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!(*dest))
 		return (NULL);
 	while (src[i])
 	{
