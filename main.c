@@ -3,17 +3,20 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int main(void)
+int main(int argc, char **argv)
 {
 	int fd;
 	int res;
 	char *str;
 	
-	fd = open("test.txt", O_RDONLY);
+	if (argc == 1)
+		fd = 0;
+	else	
+		fd = open(argv[1], O_RDONLY);
 	res = 1;
 	while (res == 1)
 	{
-		res = get_next_line(0, &str);
+		res = get_next_line(fd, &str);
 		write(1, str, ft_length(str));
 		write(1, "\n", 1);
 		free(str);
